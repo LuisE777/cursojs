@@ -36,10 +36,25 @@ function agregarCurso(event) {
 function eliminarCurso(event) {  
    if (event.target.classList.contains("borrar-curso")) {
       const cursoIdlevv = event.target.getAttribute("data-id");
-      articulosCarritolevv = articulosCarritolevv.filter((cursoSeleccionadolevv) => {
-         return cursoSeleccionadolevv.id !== cursoIdlevv;
-      })
-      carritoHTML();      
+      console.log('levv',cursoIdlevv)
+      console.log('array',articulosCarritolevv)
+      const index = articulosCarritolevv.findIndex(itemlevv => {
+         return cursoIdlevv === itemlevv.id;
+      });
+      if(articulosCarritolevv[index]?.cantidad > 1){
+         articulosCarritolevv[index].cantidad--;
+      }else{
+         articulosCarritolevv = articulosCarritolevv.filter((cursoSeleccionadolevv) => {
+            return cursoSeleccionadolevv.id !== cursoIdlevv;
+         })
+         carritoHTML();  
+      }
+
+
+    
+      console.log('detalle del arreglo',articulosCarritolevv)
+
+          
    }
 }
 
@@ -49,7 +64,7 @@ function leerDatosCurso(cursoSeleccionadolevv) {
      const infoCursolevv = {
       imagen: cursoSeleccionadolevv.querySelector("img").src,
       titulo: cursoSeleccionadolevv.querySelector("h4").textContent,
-      precio: cursoSeleccionadolevv.querySelector(".precio span").textContent.replace("$", ""),
+      precio: cursoSeleccionadolevv.querySelector(".precio span").textContent.replace("Bs.", ""),
       id: cursoSeleccionadolevv.querySelector(".agregar-carrito").getAttribute("data-id"), 
       cantidad: 1,
    }
@@ -60,7 +75,7 @@ function leerDatosCurso(cursoSeleccionadolevv) {
 
 
    if (existelevv) {
-      const cursoslevv = articulosCarrito.map(cursoSeleccionadolevv => {
+      const cursoslevv = articulosCarritolevv.map(cursoSeleccionadolevv => {
          if (cursoSeleccionadolevv.id === infoCursolevv.id) {
             cursoSeleccionadolevv.cantidad++;
             cursoSeleccionadolevv.total = cursoSeleccionadolevv.precio * cursoSeleccionadolevv.cantidad;
@@ -88,9 +103,9 @@ function carritoHTML() {
       rowlevv.innerHTML = `
        <td><img src="${cursoSeleccionadolevv.imagen}" width="120" ></td>
       <td>${cursoSeleccionadolevv.titulo}</td>
-      <td>$${cursoSeleccionadolevv.precio}</td>
+      <td>${cursoSeleccionadolevv.precio}</td>
       <td>${cursoSeleccionadolevv.cantidad}</td>
-      <td>$${cursoSeleccionadolevv.total}</td>
+      <td>${cursoSeleccionadolevv.total}</td>
 
       <td><a href="#" class="borrar-curso" data-id="${cursoSeleccionadolevv.id}">Borrar</a></td>
       

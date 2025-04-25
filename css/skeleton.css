@@ -359,6 +359,11 @@ form {
 
 /* Utilities
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.image{
+  width: 250px;
+  height: 200px;
+}
 .u-full-width {
   width: 100%;
   box-sizing: border-box; }

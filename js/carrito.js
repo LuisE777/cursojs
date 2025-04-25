@@ -1,26 +1,24 @@
+//levv mi iniciales
 
+const carritolevv = document.querySelector("#carrito");
+const listaCursoslevv = document.querySelector("#lista-cursos"); 
+const contenedorCarritolevv = document.querySelector("tbody");
+const vaciarCarritolevv = document.querySelector("#vaciar-carrito");
 
-const carrito = document.querySelector("#carrito");
-const listaCursos = document.querySelector("#lista-cursos"); 
-const contenedorCarrito = document.querySelector("tbody");
-const vaciarCarrito = document.querySelector("#vaciar-carrito");
-
-let articulosCarrito = [];
+let articulosCarritolevv = [];
 
 cargarEventosListeners();
 function cargarEventosListeners() {
-   // console.log("cargarEventosListeners");
-   listaCursos.addEventListener("click", agregarCurso);
-   carrito.addEventListener("click", eliminarCurso);
+   listaCursoslevv.addEventListener("click", agregarCurso);
+   carritolevv.addEventListener("click", eliminarCurso);
 
    document.addEventListener("DOMContentLoaded", () => {
-      articulosCarrito = JSON.parse(localStorage.getItem("carrito")) || [];
+      articulosCarritolevv = JSON.parse(localStorage.getItem("carrito")) || [];
       carritoHTML();
    });
 
-   vaciarCarrito.addEventListener("click", () => {
-      // console.log("vaciar carrito");
-      articulosCarrito = []; // Reseteamos el arreglo
+   vaciarCarritolevv.addEventListener("click", () => {
+      articulosCarritolevv = []; // Reseteamos el arreglo
       limpiarHTML();
    })
 
@@ -29,86 +27,75 @@ function cargarEventosListeners() {
 
 function agregarCurso(event) {
    event.preventDefault();
-   // console.log("agregar Curso");
-   // console.log(event.target.classList);
    if (event.target.classList.contains("agregar-carrito")) {
-      // console.log("agregando al carrito");
-      // console.log(event.target.parentElement.parentElement);
-      const cursoSeleccionado = event.target.parentElement.parentElement;
-      leerDatosCurso(cursoSeleccionado);
+      const cursoSeleccionadolevv = event.target.parentElement.parentElement;
+      leerDatosCurso(cursoSeleccionadolevv);
    }
 }
 
-function eliminarCurso(event) {
-   // console.log("eliminar curso");   
+function eliminarCurso(event) {  
    if (event.target.classList.contains("borrar-curso")) {
-      const cursoId = event.target.getAttribute("data-id");
-      articulosCarrito = articulosCarrito.filter((cursoSeleccionado) => {
-         return cursoSeleccionado.id !== cursoId;
+      const cursoIdlevv = event.target.getAttribute("data-id");
+      articulosCarritolevv = articulosCarritolevv.filter((cursoSeleccionadolevv) => {
+         return cursoSeleccionadolevv.id !== cursoIdlevv;
       })
-      // console.log(articulosCarrito);
       carritoHTML();      
    }
 }
 
 
 
-function leerDatosCurso(cursoSeleccionado) {
-   //  console.log(cursoSeleccionado);
-     const infoCurso = {
-      imagen: cursoSeleccionado.querySelector("img").src,
-      titulo: cursoSeleccionado.querySelector("h4").textContent,
-      precio: cursoSeleccionado.querySelector(".precio span").textContent.replace("$", ""),
-      id: cursoSeleccionado.querySelector(".agregar-carrito").getAttribute("data-id"), 
+function leerDatosCurso(cursoSeleccionadolevv) {
+     const infoCursolevv = {
+      imagen: cursoSeleccionadolevv.querySelector("img").src,
+      titulo: cursoSeleccionadolevv.querySelector("h4").textContent,
+      precio: cursoSeleccionadolevv.querySelector(".precio span").textContent.replace("$", ""),
+      id: cursoSeleccionadolevv.querySelector(".agregar-carrito").getAttribute("data-id"), 
       cantidad: 1,
    }
 
-   const existe = articulosCarrito.some((cursoSeleccionado)=>{
-      return cursoSeleccionado.id === infoCurso.id;
+   const existelevv = articulosCarritolevv.some((cursoSeleccionadolevv)=>{
+      return cursoSeleccionadolevv.id === infoCursolevv.id;
    });
 
-   // console.log(existe);
 
-   if (existe) {
-      const cursos = articulosCarrito.map(cursoSeleccionado => {
-         if (cursoSeleccionado.id === infoCurso.id) {
-            cursoSeleccionado.cantidad++;
-            cursoSeleccionado.total = cursoSeleccionado.precio * cursoSeleccionado.cantidad;
-            return cursoSeleccionado;
+   if (existelevv) {
+      const cursoslevv = articulosCarrito.map(cursoSeleccionadolevv => {
+         if (cursoSeleccionadolevv.id === infoCursolevv.id) {
+            cursoSeleccionadolevv.cantidad++;
+            cursoSeleccionadolevv.total = cursoSeleccionadolevv.precio * cursoSeleccionadolevv.cantidad;
+            return cursoSeleccionadolevv;
          } else {
-            return cursoSeleccionado;
+            return cursoSeleccionadolevv;
          }
       });
-      articulosCarrito = [...cursos];
+      articulosCarritolevv = [...cursoslevv];
 
    } else {
-      // console.log(infoCurso); 
-      infoCurso.total = infoCurso.precio;
-      articulosCarrito = [...articulosCarrito, infoCurso]; 
+      infoCursolevv.total = infoCursolevv.precio;
+      articulosCarritolevv = [...articulosCarritolevv, infoCursolevv]; 
    }
    
 
 
-  
-   // console.log(articulosCarrito);
    carritoHTML();
 }
 
 function carritoHTML() {
    limpiarHTML();
-   articulosCarrito.forEach(cursoSeleccionado => {
-      const row = document.createElement("tr");
-      row.innerHTML = `
-       <td><img src="${cursoSeleccionado.imagen}" width="120" ></td>
-      <td>${cursoSeleccionado.titulo}</td>
-      <td>$${cursoSeleccionado.precio}</td>
-      <td>${cursoSeleccionado.cantidad}</td>
-      <td>$${cursoSeleccionado.total}</td>
+   articulosCarritolevv.forEach(cursoSeleccionadolevv => {
+      const rowlevv = document.createElement("tr");
+      rowlevv.innerHTML = `
+       <td><img src="${cursoSeleccionadolevv.imagen}" width="120" ></td>
+      <td>${cursoSeleccionadolevv.titulo}</td>
+      <td>$${cursoSeleccionadolevv.precio}</td>
+      <td>${cursoSeleccionadolevv.cantidad}</td>
+      <td>$${cursoSeleccionadolevv.total}</td>
 
-      <td><a href="#" class="borrar-curso" data-id="${cursoSeleccionado.id}">Borrar</a></td>
+      <td><a href="#" class="borrar-curso" data-id="${cursoSeleccionadolevv.id}">Borrar</a></td>
       
       `;
-      contenedorCarrito.appendChild(row);
+      contenedorCarritolevv.appendChild(rowlevv);
    });
 
    sincronizarStorage();
@@ -117,10 +104,10 @@ function carritoHTML() {
 
 
 function sincronizarStorage() {
-   localStorage.setItem("carrito", JSON.stringify(articulosCarrito));
+   localStorage.setItem("carrito", JSON.stringify(articulosCarritolevv));
 }
 
 
 function limpiarHTML() {
-   contenedorCarrito.innerHTML = ""; // Eliminar el HTML previo
+   contenedorCarritolevv.innerHTML = ""; // Eliminar el HTML previo
 }

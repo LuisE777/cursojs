@@ -43,6 +43,13 @@ function eliminarCurso(event) {
       });
       if(articulosCarritolevv[index]?.cantidad > 1){
          articulosCarritolevv[index].cantidad--;
+         articulosCarritolevv = [...articulosCarritolevv]; 
+      carritoHTML();
+
+         // const contenedor = document.querySelector(articulosCarritolevv[index].id);
+         // console.log('el contenedor',contenedor)
+        
+
       }else{
          articulosCarritolevv = articulosCarritolevv.filter((cursoSeleccionadolevv) => {
             return cursoSeleccionadolevv.id !== cursoIdlevv;

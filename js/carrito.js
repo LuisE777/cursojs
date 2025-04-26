@@ -43,11 +43,10 @@ function eliminarCurso(event) {
       });
       if(articulosCarritolevv[index]?.cantidad > 1){
          articulosCarritolevv[index].cantidad--;
+         articulosCarritolevv[index].total = Number(articulosCarritolevv[index].cantidad) * Number(articulosCarritolevv[index].precio);
          articulosCarritolevv = [...articulosCarritolevv]; 
       carritoHTML();
 
-         // const contenedor = document.querySelector(articulosCarritolevv[index].id);
-         // console.log('el contenedor',contenedor)
         
 
       }else{
